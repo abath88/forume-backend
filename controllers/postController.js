@@ -36,7 +36,7 @@ postController.getAll = (req, res) => {
       select: 'username -_id'
     }).populate({
       path: '_comments',
-      select: 'text createdAt _creator',
+      select: 'text',
       match: { 'isDeleted': false }
     }).then((posts) => {
       return res.status(200).json({
@@ -49,6 +49,26 @@ postController.getAll = (req, res) => {
       })
     })
 };
+
+postController.get = (req, res) => {
+  db.Post.findById(req.params.id).populate({
+    path: '_creator',
+    select: 'username -_id'
+  }).populate({
+    path: '_comments',
+    select: 'text createdAt _creator',
+    match: { 'isDeleted': false }
+  }).then((post) => {
+    return res.status(200).json({
+      success: true,
+      data: post
+    })
+  }).catch((err) => {
+    return res.status(500).json({
+      message: err
+    })
+  })
+}
 
 postController.upvote = (req, res) => {
   const postId = req.params.id;

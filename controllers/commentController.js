@@ -24,21 +24,17 @@ commentController.post = (req, res) => {
             { $push: { '_comments': newComment._id } }
           )
           .then( (existingPost) => {
-            res.status(200).json({
+            return res.status(200).json({
               success: true,
               data: newComment, 
               existingPost
             })
           })
           .catch( (err) => {
-            res.status(500).json({
+            return res.status(500).json({
               message: err
             })
          })
-      return res.status(200).json({
-        success: true,
-        data: newComment
-      })
     })
     .catch((err) => {
        return res.status(500).json({

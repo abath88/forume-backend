@@ -10,7 +10,7 @@ userController.signUp = (req, res) => {
   const regexExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gi;
 
   if(!regexExp.test(mail)){
-    res.status(500).json({
+    return res.status(500).json({
       message: 'not a valid mail'
     })
   }
@@ -30,6 +30,7 @@ userController.signUp = (req, res) => {
       })
     })
     .catch((err) => {
+      console.log(err)
       return res.status(500).json({
         message: err
       })

@@ -29,12 +29,14 @@ const
   autoPopulateCreator = function(next) {
     this.populate({
         path: '_creator',
-        select: 'usename createdAt -_id'
+        select: 'username -_id'
     });
+    next();
   };
 
 
 commentSchema.pre('find', autoPopulateCreator);
+commentSchema.pre('save', autoPopulateCreator);
 commentSchema.plugin(voting);
 
 const Comment = mongoose.model('Comment', commentSchema);

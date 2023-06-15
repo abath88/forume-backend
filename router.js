@@ -17,8 +17,8 @@ routes.get('/users', userController.getUsers);
 
 //Post Routes
 routes.post('/post', passport.authenticate('jwt', { session: false }), postController.post);
-//routes.get('/post', postController.get);
-routes.get('/posts', postController.getAll);
+routes.get('/post/:id', postController.get);
+routes.get('/post', postController.getAll);
 routes.post('/post/:id/upvote', passport.authenticate('jwt', { session: false }), postController.upvote);
 routes.post('/post/:id/downvote', passport.authenticate('jwt', { session: false }), postController.downvote);
 
