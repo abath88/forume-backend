@@ -47,7 +47,7 @@ userController.signIn = (req, res) => {
       user.comparePassword(req.body.password, function (err, isMatch) {
         if (isMatch && !err) {
           const token = jwt.sign(user.toJSON(), process.env.SECRET);
-          return res.status(200).json({ success: true, token: token });
+          return res.status(200).json({ success: true, token: token, userId: user._id });
         } else {
           return res.status(401).json({message: 'Authentication failed. Wrong password.'});
         }

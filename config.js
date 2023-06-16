@@ -18,8 +18,9 @@ mongoose.connect(url).then(() => console.log('Connected to Database.'));
 const app = express();  
 
 app.use(bodyParser.json());
+app.use(express.json());
 
-const whitelist = ["http://localhost:3000"]
+const whitelist = ["https://forume.abath.pl", "http://forume.abath.pl", "http://localhost:3000"]
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || whitelist.indexOf(origin) !== -1) {
@@ -33,7 +34,7 @@ const corsOptions = {
 app.use(cors(corsOptions))
 
 passport.use(new Strategy({
-  jwtFromRequest: extractJwt.fromAuthHeaderWithScheme("Bearer"),
+  jwtFromRequest: extractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: process.env.SECRET
 }, (jwt_payload, done) => {
   db.User

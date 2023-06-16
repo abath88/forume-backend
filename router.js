@@ -23,8 +23,8 @@ routes.post('/post/:id/upvote', passport.authenticate('jwt', { session: false })
 routes.post('/post/:id/downvote', passport.authenticate('jwt', { session: false }), postController.downvote);
 
 //Comment Routes
-routes.post('/comment', passport.authenticate('jwt', { session: false }), commentController.post);
 routes.post('/comment/:id/upvote', passport.authenticate('jwt', { session: false }), commentController.upvote);
+routes.post('/comment', passport.authenticate('jwt', { session: false }), commentController.post);
 routes.post('/comment/:id/downvote', passport.authenticate('jwt', { session: false }), commentController.downvote);
 
 module.exports = routes

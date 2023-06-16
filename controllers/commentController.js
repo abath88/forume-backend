@@ -45,7 +45,6 @@ commentController.post = (req, res) => {
 
 commentController.upvote = (req, res) => {
   const commentId = req.params.id;
-
   db.Comment.findById(commentId).then( comment => {
     if(comment){
       if(comment.upvoted(req.user._id.toHexString())){
@@ -81,6 +80,8 @@ commentController.downvote = (req, res) => {
       }else {
         comment.downvote(req.user._id.toHexString());
       }
+      comment.save();
+
       return res.status(200).json({
         success: true,
         data: comment

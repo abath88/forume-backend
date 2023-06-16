@@ -16,8 +16,6 @@ postController.post = (req, res) => {
     _creator: req.user._id
   });
 
-  //Validation text or link, not both
-
   post.save().then((newPost) => {
       return res.status(200).json({
         success: true,
@@ -72,9 +70,9 @@ postController.get = (req, res) => {
 
 postController.upvote = (req, res) => {
   const postId = req.params.id;
+  
   db.Post.findById(postId).then( post => {
     if(post != null){
-      console.log('upvoted', post.upvoted(req.user._id.toHexString()))
       if(post.upvoted(req.user._id.toHexString())){
         post.unvote(req.user._id.toHexString());
       }else {

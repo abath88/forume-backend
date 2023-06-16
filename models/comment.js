@@ -34,8 +34,16 @@ const
     next();
   };
 
+  autoPopulateVote = function(next) {
+    this.populate({
+        path: 'vote'
+    });
+    next();
+  };
+
 
 commentSchema.pre('find', autoPopulateCreator);
+commentSchema.pre('find', autoPopulateVote);
 commentSchema.pre('save', autoPopulateCreator);
 commentSchema.plugin(voting);
 
